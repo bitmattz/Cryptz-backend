@@ -3,6 +3,7 @@ package com.bitmattz.cryptz.services;
 import com.bitmattz.cryptz.models.PasswordRules;
 import com.bitmattz.cryptz.models.Password;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -14,20 +15,28 @@ public class CreatePassword {
         Integer length = rules.getLength();
         char[] pwd = new char[length];
         List<String> allowedChars = loadAllowedChars.execute(rules);
+        for(int i = 0; i < pwd.length; i++){
+            if(pwd[i] == '\0'){
 
-        for (char i : pwd){
-            System.out.println(pwd[i]);
-            if(i == '\0'){
-                pwd[i] = '1';
                 Random randomizer = new Random();
                 String randomChar = allowedChars.get(randomizer.nextInt(allowedChars.size()));
                 if(rules.isHasSimilarCharacters()){
-
+                    if((pwd).toString().contains(randomChar)){
+                        while((pwd).toString().contains(randomChar)) {
+                            randomChar = allowedChars.get(new Random().nextInt(allowedChars.size()));
+                        }
+                        pwd[i] = randomChar.charAt(0);
+                    }
+                    else{
+                        pwd[i] = randomChar.charAt(0);
+                    }
+                }
+                else{
+                    pwd[i] = randomChar.charAt(0);
                 }
             }
-            System.out.println(pwd[i]);
         }
-
-        return new Password();
+        password.setPassword(pwd);
+        return password;
     }
 }
