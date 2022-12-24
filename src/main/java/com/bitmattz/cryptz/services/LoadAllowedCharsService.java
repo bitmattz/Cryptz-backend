@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 
 
-public class LoadAllowedChars {
+public class LoadAllowedCharsService {
     public List<String> execute(PasswordRules rules){
         List<String> allowedChars = new ArrayList<>();
         if(rules.isHasLowercase()){
@@ -25,7 +25,7 @@ public class LoadAllowedChars {
         }
         if(rules.isHasSymbols()){
             // !,@,#,$,%,&,(,)
-            List<String> symbols = Arrays.asList("!","@","#","$","%","&","(",")");
+            List<String> symbols = Arrays.asList("!","@","#","$","&","(",")");
             Stream.of(symbols).forEach(allowedChars::addAll);
         }
         if(rules.isHasUppercase()){

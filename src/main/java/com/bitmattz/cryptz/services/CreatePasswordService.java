@@ -3,18 +3,17 @@ package com.bitmattz.cryptz.services;
 import com.bitmattz.cryptz.models.PasswordRules;
 import com.bitmattz.cryptz.models.Password;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class CreatePassword {
-    private final LoadAllowedChars loadAllowedChars = new LoadAllowedChars();
+public class CreatePasswordService {
+    private final LoadAllowedCharsService loadAllowedCharsService = new LoadAllowedCharsService();
 
     public Password execute(Password password){
         PasswordRules rules = password.getRules();
         Integer length = rules.getLength();
         char[] pwd = new char[length];
-        List<String> allowedChars = loadAllowedChars.execute(rules);
+        List<String> allowedChars = loadAllowedCharsService.execute(rules);
         for(int i = 0; i < pwd.length; i++){
             if(pwd[i] == '\0'){
 
